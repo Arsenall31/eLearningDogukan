@@ -8,25 +8,41 @@ session_start();
 
 if(isset($_POST['submit'])) {
     $sql = "INSERT INTO `lijst`(`gebruiker_id`, `name`, `description`, `mode_id`) VALUES (?,?,?,?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issi", $_SESSION['gebruikerid'], $_POST['title'], $_POST['description'], $_POST['mode']);
-    $result = $stmt->execute();
-    $realResult = true;
+    $stmt1 = $conn->prepare($sql);
+    $stmt1->bind_param("issi", $_SESSION['gebruikerid'], $_POST['title'], $_POST['description'], $_POST['mode']);
+    $result1 = $stmt1->execute();
 
-    $sql2 = 'SELECT * FROM lijst';
-    $stmt2 = $conn->query($sql2);
-    $listId = $stmt2->num_rows;
+    if($result1) {
+        $sql2 = 'SELECT * FROM lijst WHERE id = LAST_INSERT_ID()';
+        $stmt2 = $conn->query($sql2);
+        $list = $stmt2->fetch_assoc();
+        $listId = $list['id'];
 
-    for ($i = 0; $i < 5; $i++) {
-        $sql = "INSERT INTO `lijst_vragen`(`lijst_id`,`question`, `good_answer`) VALUES (?,?,?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iss", $listId, $_POST['vraagstelling' . $i], $_POST['antwoord' . $i]);
-        $result = $stmt->execute();
+        for ($i = 0; $i < 5; $i++) {
+            $vraagstelling = isset($_POST['vraagstelling' . $i]) ? $_POST['vraagstelling' . $i] : null;
+            $antwoord = isset($_POST['antwoord' . $i]) ? $_POST['antwoord' . $i] : null;
+
+            if ($vraagstelling && $antwoord) {
+                $sql3 = "INSERT INTO `lijst_vragen`(`lijst_id`, `question`, `good_answer`) VALUES (?,?,?)";
+                $stmt3 = $conn->prepare($sql3);
+                $stmt3->bind_param("iss", $listId, $vraagstelling, $antwoord);
+                $result3 = $stmt3->execute();
+
+                if (!$result3) {
+                    $realResult = false;
+                    break;
+                }
+            }
+        }
+
         $realResult = true;
     }
+    else {
+        $realResult = false;
+    }
 }
-
 ?>
+
 
 <!doctype html>
 <html lang="en">

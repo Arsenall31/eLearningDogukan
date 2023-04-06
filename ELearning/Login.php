@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-include "con.php";
+include "connection.php";
 /** @var mysqli $conn */
 
 session_start();

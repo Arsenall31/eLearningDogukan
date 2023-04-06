@@ -1,6 +1,6 @@
 <?php
 include "LogHeader.php";
-include "con.php";
+include "connection.php";
 include "bootstrap.php";
 /** @var mysqli $conn */
 

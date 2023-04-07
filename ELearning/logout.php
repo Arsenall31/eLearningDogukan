@@ -2,6 +2,6 @@
 
 session_destroy();
 echo '<script>alert("Logged out!")</script>';
-header('Location:index.php');
+header("Refresh:0.1; url=index.php")
 
 ?>

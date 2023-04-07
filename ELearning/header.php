@@ -7,7 +7,7 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <a href="index.php" class="nav-link px-2 text-white">Home</a></li>
-                <li><a href="Login.php" class="nav-link px-2 text-white">Login</a></li>
+                <li><a href="login.php" class="nav-link px-2 text-white">Login</a></li>
                 <li><a href="signup.php" class="nav-link px-2 text-white">Sign up</a></li>
             </ul>
         </div>

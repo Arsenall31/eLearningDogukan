@@ -1,5 +1,8 @@
 <?php
 include "header.php";
+include "connection.php"
+
+/** @var mysqli $conn */
 ?>
 
 <!doctype html>
@@ -30,7 +33,7 @@ include "header.php";
     <div class="d-flex justify-content-between align-items-center">
 
         <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" name="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Create account</button>
+            <button type="  submit" name="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Create account</button>
         </div>
 </form>
 
@@ -38,12 +41,11 @@ include "header.php";
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg')</script>";
 }
-$connection = mysqli_connect("localhost", "root", "", "e-learning");
 
 if (isset($_POST["submit"])) {
     $wachtwoord = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $sql2 = "SELECT * FROM gebruiker WHERE username = ?";
-    $stmt2 = $connection->prepare($sql2);
+    $stmt2 = $conn->prepare($sql2);
     $stmt2->bind_param("s", $_POST['username']);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
@@ -51,7 +53,7 @@ if (isset($_POST["submit"])) {
         echo "<script>alert('naam bestaat al');</script>";
     } else {
         $sql = "INSERT INTO gebruiker(username, password) VALUES (?,?)";
-        $stmt = $connection->prepare($sql);
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $_POST['username'], $wachtwoord);
         $result = $stmt->execute();
         $realResult = true;

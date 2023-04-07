@@ -1,9 +1,9 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "klas4s21_564937";
+$password = "SruQbpMg";
 
-$conn = new mysqli($servername, $username, $password, 'e-learning');
+$conn = new mysqli($servername, $username, $password, 'klas4s21_564937');
 
 ?>

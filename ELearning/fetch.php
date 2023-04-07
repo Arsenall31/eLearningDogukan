@@ -1,15 +1,12 @@
 <?php
+include "connection.php";
+/** @var mysqli $conn */
 
 $data = json_decode(file_get_contents('php://input'), true);
 
 
 $vraagId = $data['vraagid'];
 $answer = $data['antwoord'];
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-$conn = new mysqli($servername, $username, $password, 'e-learning');
 
 $sql = "SELECT * FROM `lijst_vragen` WHERE lijst_vragen.good_answer= ? AND lijst_vragen.id = ? ";
 $stmt = $conn->prepare($sql);

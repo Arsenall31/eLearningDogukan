@@ -41,7 +41,7 @@ $result = $stmt->get_result();
                    <input type='text' id='antwoord". $row["id"] ."' name='antwoord1' class='form-control' placeholder='Enter your answer here'>
                 </div>
                 <div class='d-flex align-items-center'>
-                  <button onclick='fetchmyshit(". $row["id"] .")' type='submit' name='submit' class='btn btn-primary me-3'>Check</button>
+                  <button onclick='fetchmyshit(". $row["id"] .")' id='button-". $row["id"] ."' type='submit' name='submit' class='btn btn-primary me-3'>Check</button>
                   <div id='result". $row["id"] ."'></div>
                 </div>
               </div>";
@@ -60,7 +60,7 @@ $result = $stmt->get_result();
 
     function fetchmyshit(id) {
         const value = document.getElementById("antwoord"+ id).value;
-
+        document.getElementById("button-" + id).disabled = true;
         const data = {
             antwoord: value,
             vraagid: id,
@@ -79,6 +79,7 @@ $result = $stmt->get_result();
                     console.log("Goed antwoord");
                     correctAnswers++;
                     document.getElementById("result" + id).innerHTML = "<span style='color: green;'>Correct!</span>";
+                    document
                 } else {
                     console.log("Fout antwoord");
                     wrongAnswers++;
